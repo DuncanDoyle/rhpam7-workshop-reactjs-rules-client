@@ -1,2 +1,4 @@
 #!/bin/sh
-touch test.txt
+
+# Used in the OpenShift S2I NGINX builds
+./env.sh
