@@ -176,7 +176,10 @@ class FormContainer extends Component {
         ]
         }
         //TODO: Fix loading of configuration files.
-        let kieServerUrl = process.env.KIE_SERVER_URL;
+        let kieServerUrl = process.env.REACT_APP_KIE_SERVER_URL;
+        console.log("KIE-Server URL: " + kieServerUrl);
+        let testEnv = process.env.REACT_APP_NOT_SECRET_CODE;
+        console.log("Test env: " + testEnv);
         kieServerUrl = "http://localhost:8080/kie-server"
         console.log("KIE-Server URL: " + kieServerUrl);
         fetch(kieServerUrl + '/services/rest/server/containers/instances/ccd-project_1.0.0',{
@@ -228,6 +231,7 @@ class FormContainer extends Component {
                 <Row>
                 <Col>
                 <h2>Credit Card Holder</h2>
+                <p>API_URL: {window._env_.API_URL}</p>
                 <Form.Group controlId="formCCHolderName">
                     <Form.Label>Name</Form.Label>
                     <Form.Control name="name" type="text" placeholder="Enter name" onChange={this.handleCCHolderInput} value={this.state.ccHolder.name}  />
