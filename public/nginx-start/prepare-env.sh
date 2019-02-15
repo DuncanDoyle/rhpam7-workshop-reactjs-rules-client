@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Used in the OpenShift S2I NGINX builds
-./env.sh
+./env.sh ~/.dynamic.env
