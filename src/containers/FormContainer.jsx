@@ -177,6 +177,10 @@ class FormContainer extends Component {
         }
         //TODO: Fix loading of configuration files.
         let kieServerUrl = window._env_.KIE_SERVER_URL;
+        let username = window._env_.KIE_SERVER_USER;
+        let password = window._env_.KIE_SERVER_PWD;
+        //Create Base64 respresentation of username and password.
+        let authorization = btoa(username +  ":" + password);
         console.log("KIE-Server URL: " + kieServerUrl);
         fetch(kieServerUrl + '/services/rest/server/containers/instances/ccd-project_1.0.0',{
             method: "POST",
@@ -184,7 +188,7 @@ class FormContainer extends Component {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ZG1BZG1pbjpyZWRoYXRkbTEh'
+                'Authorization': 'Basic ' + authorization
             },
         }).then(response => {
             response.json().then(data => {
