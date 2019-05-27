@@ -1,9 +1,9 @@
-import React, {Component} from 'react';  
+import React, {Component} from 'react';
 
 /* Import Components */
-import CheckBox from '../components/CheckBox';  
-import Input from '../components/Input';  
-import TextArea from '../components/TextArea';  
+import CheckBox from '../components/CheckBox';
+import Input from '../components/Input';
+import TextArea from '../components/TextArea';
 import Select from '../components/Select';
 import FormButton from '../components/FormButton'
 import ResponseContainer from './ResponseContainer'
@@ -17,10 +17,10 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { timingSafeEqual } from 'crypto';
 
-class FormContainer extends Component {  
+class FormContainer extends Component {
     constructor(props) {
       super(props);
-  
+
       this.state = {
         ccHolder: {
           name: '',
@@ -35,7 +35,7 @@ class FormContainer extends Component {
             riskRating: '',
             automatedProcessing: ''
         },
-        statusOptions: ['Silver', 'Gold', 'Platinum'],
+        statusOptions: ['Standard', 'Silver', 'Gold'],
       }
       this.handleFormSubmit = this.handleFormSubmit.bind(this);
       this.handleClearForm = this.handleClearForm.bind(this);
@@ -49,7 +49,7 @@ class FormContainer extends Component {
         let value = e.target.value;
         let name = e.target.name;
         this.setState( prevState => {
-           return { 
+           return {
               ccHolder : {
                        ...prevState.ccHolder, [name]: value
                       }
@@ -66,13 +66,13 @@ class FormContainer extends Component {
         let value = e.target.value;
         let name = e.target.name;
         this.setState( prevState => {
-           return { 
+           return {
               fraudData : {
                        ...prevState.fraudData, [name]: value
                       }
            }
         }, () => {
-            
+
             console.log(this.state.ccHolder);
             console.log(this.state.fraudData);
             console.log(this.state.response);
@@ -88,7 +88,7 @@ class FormContainer extends Component {
         console.log("Dispute Risk Rating: " + JSON.stringify(disputeRiskRating));
         console.log("Automated: " + JSON.stringify(automated));
         this.setState( prevState => {
-           return { 
+           return {
               response : {
                        ...prevState.reponse, riskRating: disputeRiskRating, automated: automated
                       }
@@ -105,13 +105,13 @@ class FormContainer extends Component {
     handleCheckBox(e) {
         const newSelection = e.target.value;
         let newSelectionArray;
-    
+
         if(this.state.ccHolder.skills.indexOf(newSelection) > -1) {
           newSelectionArray = this.state.ccHolder.skills.filter(s => s !== newSelection)
         } else {
           newSelectionArray = [...this.state.ccHolder.skills, newSelection];
         }
-    
+
         this.setState( prevState => ({ ccHolder:
             {...prevState.ccHolder, skills: newSelectionArray }
             })
@@ -131,7 +131,7 @@ class FormContainer extends Component {
     */
 
      /* This life cycle hook gets executed when the component mounts */
-    
+
     handleFormSubmit(e) {
         console.log("Sending data to the rules engine.");
         e.preventDefault();
@@ -139,11 +139,11 @@ class FormContainer extends Component {
         let fraudData = this.state.fraudData;
         let requestBody = {
             "lookup":null,
-            "commands":[  
-                {  
-                    "insert":{  
-                        "object":{  
-                            "com.myspace.ccd_project.CreditCardHolder":{  
+            "commands":[
+                {
+                    "insert":{
+                        "object":{
+                            "com.myspace.ccd_project.CreditCardHolder":{
                                 "age": ccHolderData.age,
                                 "status":ccHolderData.status
                             }
@@ -154,10 +154,10 @@ class FormContainer extends Component {
                         "disconnected":false
                     }
                 },
-                {  
-                    "insert":{  
-                        "object":{  
-                            "com.myspace.ccd_project.FraudData":{  
+                {
+                    "insert":{
+                        "object":{
+                            "com.myspace.ccd_project.FraudData":{
                                 "totalFraudAmount":fraudData.amount
                             }
                         },
@@ -167,8 +167,8 @@ class FormContainer extends Component {
                         "disconnected":false
                     }
                 },
-                {  
-                    "fire-all-rules":{  
+                {
+                    "fire-all-rules":{
                     "max":-1,
                     "out-identifier":null
                 }
@@ -198,12 +198,12 @@ class FormContainer extends Component {
     })
     }
 
-    
+
 
     handleClearForm(e) {
         //e.preventDefault() prevents the page from being refreshed on form submission, which is the default form behavior.
         e.preventDefault();
-        this.setState({ 
+        this.setState({
             ccHolder: {
                 name: '',
                 age: '',
@@ -215,18 +215,18 @@ class FormContainer extends Component {
             },
             response: {
                 riskRating: '',
-                automatedProcessing: '' 
+                automatedProcessing: ''
             }
         })
     }
 
     render() {
-        
+
         //TODO: only render response when we actually have a response. Would be nice to use a response container for that to which we push response state once fetched.
         //  let response; if (this.state.response.riskRating == 0) {  } else {  }*/
 
         return (
-            
+
             <Form>
                 <Row>
                 <Col>
@@ -277,7 +277,7 @@ class FormContainer extends Component {
                 <ResponseContainer response={this.state.response} />
             </Form>
         );
-    } 
+    }
 }
 
 const buttonStyle = {
