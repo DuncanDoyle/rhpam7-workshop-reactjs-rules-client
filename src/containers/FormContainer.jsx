@@ -182,7 +182,7 @@ class FormContainer extends Component {
         //Create Base64 respresentation of username and password.
         let authorization = btoa(username +  ":" + password);
         console.log("KIE-Server URL: " + kieServerUrl);
-        fetch(kieServerUrl + '/services/rest/server/containers/instances/ccd-project_1.0.0',{
+        fetch(kieServerUrl + '/services/rest/server/containers/instances/ccd-project',{
             method: "POST",
             body: JSON.stringify(requestBody),
             headers: {
