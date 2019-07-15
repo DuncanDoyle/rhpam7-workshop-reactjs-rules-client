@@ -138,7 +138,7 @@ class FormContainer extends Component {
         let ccHolderData = this.state.ccHolder;
         let fraudData = this.state.fraudData;
         let requestBody = {
-            "lookup":null,
+            "lookup":"ccd-ksession-stateless",
             "commands":[
                 {
                     "insert":{
